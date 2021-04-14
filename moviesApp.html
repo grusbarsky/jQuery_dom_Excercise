@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movies App</title>
+    </head>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <body>
+        <form>
+            <label for=".title">Enter Movie Title:</label>
+            <input class="title" placeholder="Movie Title" required>
+            <label for=".rating">Rating 1-10:</label>
+            <input class="rating" type="number" min="0" max="10" required>
+            <button id="submit">Submit</button>
+        </form>
+        <div id="movieList"></div>
+    </body>
+    <script>
+         $(function(){
+            $("#submit").click(function(e){
+                e.preventDefault();
+                let Title = $(".title").val();
+                let Rating = $(".rating").val();
+                if(Rating === "" || Title === ""){
+                    return;
+                }
+                else{
+                let movieRating = `${Title} has a rating of ${Rating}`
+                let newMovie = $("<div class='listItem'>");
+                newMovie.text(movieRating);
+                let removeButton = $('<button type="button"/>')
+                removeButton.text("Remove").addClass("remove");
+                $(newMovie).append(removeButton);
+                $("#movieList").append(newMovie);
+                }
+            })
+            $("#movieList").on("click", ".remove", function(e){
+                $(e.target).parent().remove();
+            });
+        });
+    </script>
+</html>
